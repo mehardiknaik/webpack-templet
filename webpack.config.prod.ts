@@ -5,6 +5,7 @@ import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import DotenvWebpackPlugin from "dotenv-webpack";
 
 const corejs = "core-js";
 const corejsReg = new RegExp(`[\\\\/]node_modules[\\\\/]${corejs}[\\\\/]`, "i");
@@ -24,7 +25,7 @@ const config: Configuration = {
         test: /\.(png|jpe?g|gif|svg)$/i,
         loader: "file-loader",
         options: {
-          name: "[name].[hash:base64:5].[ext]",
+          name: "[name].[hash:5].[ext]",
         },
       },
       {
@@ -91,15 +92,12 @@ const config: Configuration = {
       new TerserPlugin({
         exclude: corejsReg,
         extractComments: false,
-        terserOptions:{
-          compress: {
-            drop_console: true,
-          },
+        terserOptions: {
           mangle: true,
           output: {
             comments: false,
           },
-        }
+        },
       }),
       new CssMinimizerPlugin(),
     ],
@@ -117,6 +115,11 @@ const config: Configuration = {
     }),
     new CopyWebpackPlugin({
       patterns: [{ from: "public" }],
+    }),
+    new DotenvWebpackPlugin({
+      defaults: true,
+      allowEmptyValues: true,
+      safe: true,
     }),
   ],
 };

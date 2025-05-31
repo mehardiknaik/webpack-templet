@@ -2,6 +2,7 @@ import { ProvidePlugin, Configuration as WebpackConfiguration } from "webpack";
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import DotenvWebpackPlugin from "dotenv-webpack";
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -19,7 +20,7 @@ const config: Configuration = {
         test: /\.(png|jpe?g|gif|svg)$/i,
         loader: "file-loader",
         options: {
-          name: "[name].[hash:base64:5].[ext]",
+          name: "[path][name].[hash:5].[ext]",
         },
       },
       {
@@ -31,7 +32,7 @@ const config: Configuration = {
             options: {
               modules: {
                 namedExport: false,
-                localIdentName: "[name]__[local]___[hash:5]",
+                localIdentName: "[path][name]__[local]___[hash:5]",
                 exportLocalsConvention: "camelCase",
               },
             },
@@ -68,6 +69,11 @@ const config: Configuration = {
       React: "react",
     }),
     new MiniCssExtractPlugin(),
+    new DotenvWebpackPlugin({
+      defaults: true,
+      allowEmptyValues: true,
+      safe: true,
+    }),
   ],
   devtool: "eval-source-map",
   devServer: {
