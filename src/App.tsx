@@ -8,7 +8,7 @@ const App = () => {
       <div>Build Created At: {__BUILD_DATE__}</div>
       <div>Is Dev: {__DEV__ ? "True" : "False"}</div>
       <div>Is Prod: {__PROD__ ? "True" : "False"}</div>
-      <div className={style.logoContainer}>
+      <div className={style["logo-container"]}>
         <img src="./react.svg" alt="React Logo" className={style.react} />
         <img src={webpackLogo} alt="Webpack Logo" className={style.webpack} />
       </div>
