@@ -13,7 +13,7 @@ const config: Configuration = {
   mode: "production",
   entry: "./src/index.tsx",
   output: {
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js",
     hashDigestLength: 7,
     clean: true,
@@ -50,8 +50,7 @@ const config: Configuration = {
         exclude: /\.module\.css$/,
       },
       {
-        test: /\.(ts|js)x?$/i,
-        exclude: /node_modules/,
+        test: /\.(ts|tsx|js|jsx|mjs)$/i,
         use: {
           loader: "babel-loader",
           options: {
