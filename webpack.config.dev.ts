@@ -1,4 +1,8 @@
-import { ProvidePlugin, Configuration as WebpackConfiguration } from "webpack";
+import {
+  DefinePlugin,
+  ProvidePlugin,
+  Configuration as WebpackConfiguration,
+} from "webpack";
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
@@ -73,6 +77,11 @@ const config: Configuration = {
       defaults: true,
       allowEmptyValues: true,
       safe: true,
+    }),
+    new DefinePlugin({
+      __DEV__: JSON.stringify(true),
+      __PROD__: JSON.stringify(false),
+      __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
     }),
   ],
   devtool: "eval-source-map",

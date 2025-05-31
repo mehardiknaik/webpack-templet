@@ -1,5 +1,5 @@
 import path from "path";
-import { Configuration, ProvidePlugin } from "webpack";
+import { Configuration, DefinePlugin, ProvidePlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
@@ -120,6 +120,11 @@ const config: Configuration = {
       defaults: true,
       allowEmptyValues: true,
       safe: true,
+    }),
+    new DefinePlugin({
+      __DEV__: JSON.stringify(false),
+      __PROD__: JSON.stringify(true),
+      __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
     }),
   ],
 };
