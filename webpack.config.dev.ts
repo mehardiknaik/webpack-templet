@@ -1,12 +1,11 @@
 import {
   DefinePlugin,
-  ProvidePlugin,
   Configuration as WebpackConfiguration,
 } from "webpack";
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import DotenvWebpackPlugin from "dotenv-webpack";
+import commonConfig from "./webpack.config.common";
+import { merge } from "webpack-merge";
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -14,9 +13,6 @@ interface Configuration extends WebpackConfiguration {
 
 const config: Configuration = {
   mode: "development",
-  output: {
-    publicPath: "/",
-  },
   entry: "./src/index.tsx",
   module: {
     rules: [
@@ -43,41 +39,13 @@ const config: Configuration = {
           },
         ],
       },
-      {
-        test: /\.(ts|tsx|js|jsx|mjs)$/i,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
-              "@babel/preset-typescript",
-            ],
-          },
-        },
-      },
     ],
-  },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js", "jsx"],
   },
   optimization: {
     runtimeChunk: "single",
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      inject: true,
-    }),
-    new ProvidePlugin({
-      React: "react",
-    }),
     new MiniCssExtractPlugin(),
-    new DotenvWebpackPlugin({
-      defaults: true,
-      allowEmptyValues: true,
-      safe: true,
-    }),
     new DefinePlugin({
       __DEV__: JSON.stringify(true),
       __PROD__: JSON.stringify(false),
@@ -93,4 +61,4 @@ const config: Configuration = {
   },
 };
 
-export default config;
+export default merge<Partial<Configuration>>(commonConfig, config);

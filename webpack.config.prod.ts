@@ -1,18 +1,16 @@
 import path from "path";
 import { Configuration, DefinePlugin, ProvidePlugin } from "webpack";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import CopyWebpackPlugin from "copy-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import DotenvWebpackPlugin from "dotenv-webpack";
+import merge from "webpack-merge";
+import commonConfig from "./webpack.config.common";
 
 const corejs = "core-js";
 const corejsReg = new RegExp(`[\\\\/]node_modules[\\\\/]${corejs}[\\\\/]`, "i");
 
 const config: Configuration = {
   mode: "production",
-  entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js",
@@ -43,30 +41,8 @@ const config: Configuration = {
             },
           },
         ],
-        include: /\.module\.css$/,
-      },
-      {
-        test: /\.(css|scss)$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
-        exclude: /\.module\.css$/,
-      },
-      {
-        test: /\.(ts|tsx|js|jsx|mjs)$/i,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
-              "@babel/preset-typescript",
-            ],
-          },
-        },
       },
     ],
-  },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js", "jsx"],
   },
   optimization: {
     splitChunks: {
@@ -103,23 +79,11 @@ const config: Configuration = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      inject: true,
-    }),
     new ProvidePlugin({
       React: "react",
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css",
-    }),
-    new CopyWebpackPlugin({
-      patterns: [{ from: "public" }],
-    }),
-    new DotenvWebpackPlugin({
-      defaults: true,
-      allowEmptyValues: true,
-      safe: true,
     }),
     new DefinePlugin({
       __DEV__: JSON.stringify(false),
@@ -129,4 +93,4 @@ const config: Configuration = {
   ],
 };
 
-export default config;
+export default merge<Partial<Configuration>>(commonConfig, config);
