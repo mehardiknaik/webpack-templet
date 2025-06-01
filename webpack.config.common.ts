@@ -2,6 +2,7 @@ import { Configuration, DefinePlugin, ProvidePlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import DotenvWebpackPlugin from "dotenv-webpack";
+import EmitRawConfigPlugin from "./script/EmitRawConfigPlugin";
 
 const config: Configuration = {
   entry: "./src/index.tsx",
@@ -29,6 +30,7 @@ const config: Configuration = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       inject: true,
+      configScript: `<script src="config.js"></script>`,
     }),
     new ProvidePlugin({
       React: "react",
@@ -40,6 +42,10 @@ const config: Configuration = {
       defaults: true,
       allowEmptyValues: true,
       safe: true,
+    }),
+    new EmitRawConfigPlugin({
+      input: "src/config.ts",
+      output: "config.js",
     }),
   ],
 };

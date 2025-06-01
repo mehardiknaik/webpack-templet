@@ -23,6 +23,13 @@
     ]
   },
   "include": [
-    "src"
-  ]
+    "src",
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "coverage",
+    "public",
+  ],
 }

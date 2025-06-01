@@ -29,3 +29,16 @@ declare const __PROD__: boolean;
  * Build date in ISO format.
  */
 declare const __BUILD_DATE__: string;
+
+interface Window {
+  /**
+   * Global environment variables.
+   * This object is access from window context.
+   */
+  __env: {
+    /**
+     * Application name.
+     */
+    NAME?: string;
+  };
+}

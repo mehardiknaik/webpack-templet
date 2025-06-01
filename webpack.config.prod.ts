@@ -66,7 +66,7 @@ const config: Configuration = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        exclude: corejsReg,
+        exclude: [corejsReg, /config\.js$/],
         extractComments: false,
         terserOptions: {
           mangle: true,
