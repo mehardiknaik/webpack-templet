@@ -21,6 +21,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
+    "@babel/runtime": "^7.27.4",
     "@types/dotenv-webpack": "^7.0.8",
     "@types/node": "^22.15.29",
     "@types/react": "^19.1.6",

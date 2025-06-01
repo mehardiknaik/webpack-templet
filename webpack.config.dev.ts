@@ -13,7 +13,6 @@ interface Configuration extends WebpackConfiguration {
 
 const config: Configuration = {
   mode: "development",
-  entry: "./src/index.tsx",
   module: {
     rules: [
       {

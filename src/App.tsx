@@ -1,5 +1,8 @@
+import { lazy, Suspense } from "react";
 import style from "./App.module.css";
 import webpackLogo from "./assets/webpack.png";
+
+const Counter = lazy(() => import("./components/Counter"));
 
 const App = () => {
   return (
@@ -12,6 +15,9 @@ const App = () => {
         <img src="./react.svg" alt="React Logo" className={style.react} />
         <img src={webpackLogo} alt="Webpack Logo" className={style.webpack} />
       </div>
+      <Suspense fallback={<div>Loading Counter...</div>}>
+        <Counter />
+      </Suspense>
     </div>
   );
 };

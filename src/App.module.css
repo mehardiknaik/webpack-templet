@@ -6,6 +6,7 @@
   height: 100vh;
   background-color: #f0f0f0;
   font-size: 24px;
+  text-align: center;
 }
 .logo-container {
   display: flex;
