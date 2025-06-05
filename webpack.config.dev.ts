@@ -16,10 +16,17 @@ const config: Configuration = {
   module: {
     rules: [
       {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "[path][name].[hash:5][ext]",
+        },
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        loader: "file-loader",
-        options: {
-          name: "[path][name].[hash:5].[ext]",
+        type: "asset/resource",
+        generator: {
+          filename: "[path][name].[hash:5][ext]",
         },
       },
       {

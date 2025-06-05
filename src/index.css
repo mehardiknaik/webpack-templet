@@ -1,3 +1,16 @@
+@font-face {
+  font-family: Sohne;
+  font-style: normal;
+  font-weight: 300 700;
+  src: url('./assets/Sohne.woff2') format('woff2-variations');
+  font-display: swap;
+}
+
+html,
+body {
+  font-family: 'Sohne';
+}
+
 /* 1. Use a more-intuitive box-sizing model */
 *,
 *::before,
