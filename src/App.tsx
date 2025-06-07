@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
 import style from './App.module.css';
 import webpackLogo from './assets/webpack.png';
+import DemoError from './components/DemoError';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 const Counter = lazy(() => import('./components/Counter'));
 
@@ -21,6 +23,9 @@ const App = () => {
       <Suspense fallback={<div>Loading Counter...</div>}>
         <Counter />
       </Suspense>
+      <ErrorBoundary>
+        <DemoError />
+      </ErrorBoundary>
     </div>
   );
 };

@@ -1,74 +1,82 @@
-import path from "path";
-import { Configuration, DefinePlugin, ProvidePlugin } from "webpack";
-import TerserPlugin from "terser-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import merge from "webpack-merge";
-import commonConfig from "./webpack.config.common";
+import path from 'path';
+import { Configuration, DefinePlugin } from 'webpack';
+import TerserPlugin from 'terser-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import merge from 'webpack-merge';
+import commonConfig from './webpack.config.common';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-const corejs = "core-js";
-const corejsReg = new RegExp(`[\\\\/]node_modules[\\\\/]${corejs}[\\\\/]`, "i");
+const corejs = 'core-js';
+const corejsReg = new RegExp(`[\\\\/]node_modules[\\\\/]${corejs}[\\\\/]`, 'i');
 
 const config: Configuration = {
-  mode: "production",
+  mode: 'production',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contenthash].js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
     hashDigestLength: 7,
-    clean: true,
+    clean: true
   },
   module: {
     rules: [
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "fonts/[name].[hash:5][ext]",
-        },
+          filename: 'fonts/[name].[hash:5][ext]'
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "images/[name].[hash:5][ext]",
-        },
+          filename: 'images/[name].[hash:5][ext]'
+        }
       },
       {
         test: /\.(css|scss)$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: {
                 namedExport: false,
-                localIdentName: "[hash:5]",
-                exportLocalsConvention: "camelCase",
-              },
-            },
-          },
-        ],
-      },
-    ],
+                localIdentName: '[hash:5]',
+                exportLocalsConvention: 'camelCase'
+              }
+            }
+          }
+        ]
+      }
+    ]
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       minSize: 10000,
       cacheGroups: {
         corejs: {
           test: corejsReg,
           name: corejs,
-          chunks: "all",
+          chunks: 'all',
+          priority: 30
+        },
+        common: {
+          name: 'common',
+          minChunks: 2,
           priority: 20,
+          reuseExistingChunk: true,
+          enforce: true
         },
         vendor: {
-          test: /node_modules/,
-          chunks: "initial",
-          name: "vendor",
-          priority: 10,
-        },
-      },
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+          priority: 10
+        }
+      }
     },
     minimize: true,
     minimizer: [
@@ -78,26 +86,28 @@ const config: Configuration = {
         terserOptions: {
           mangle: true,
           output: {
-            comments: false,
-          },
-        },
+            comments: false
+          }
+        }
       }),
-      new CssMinimizerPlugin(),
-    ],
+      new CssMinimizerPlugin()
+    ]
   },
+
   plugins: [
-    new ProvidePlugin({
-      React: "react",
-    }),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css",
+      filename: '[name].[contenthash].css'
     }),
     new DefinePlugin({
       __DEV__: JSON.stringify(false),
       __PROD__: JSON.stringify(true),
-      __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+      __BUILD_DATE__: JSON.stringify(new Date().toISOString())
     }),
-  ],
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false,
+      analyzerMode: 'static'
+    })
+  ]
 };
 
 export default merge<Partial<Configuration>>(commonConfig, config);
