@@ -10,11 +10,14 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 const corejs = 'core-js';
 const corejsReg = new RegExp(`[\\\\/]node_modules[\\\\/]${corejs}[\\\\/]`, 'i');
 
+const SEPERATE_FOLDERS = true;
+
 const config: Configuration = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
+    chunkFilename: `${SEPERATE_FOLDERS ? 'chunk/' : ''}[name].[contenthash].js`,
     hashDigestLength: 7,
     clean: true
   },
@@ -24,14 +27,14 @@ const config: Configuration = {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[name].[hash:5][ext]'
+          filename: `${SEPERATE_FOLDERS ? 'fonts/' : ''}[name].[hash:5][ext]`
         }
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name].[hash:5][ext]'
+          filename: `${SEPERATE_FOLDERS ? 'images/' : ''}[name].[hash:5][ext]`
         }
       },
       {
@@ -96,7 +99,8 @@ const config: Configuration = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css'
+      filename: '[name].[contenthash].css',
+      chunkFilename: `${SEPERATE_FOLDERS ? 'css/' : ''}[name].[contenthash].css`
     }),
     new DefinePlugin({
       __DEV__: JSON.stringify(false),
