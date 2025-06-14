@@ -1,4 +1,4 @@
-declare module "*.css" {
+declare module '*.css' {
   const content: { [className: string]: string };
   export = content;
 }
@@ -7,10 +7,10 @@ declare module "*.css" {
  * Module declaration for image files.
  * Allows importing images as modules.
  */
-declare module "*.png";
-declare module "*.svg";
-declare module "*.jpeg";
-declare module "*.jpg";
+declare module '*.png';
+declare module '*.svg';
+declare module '*.jpeg';
+declare module '*.jpg';
 
 /**
  * Global variable.

@@ -69,7 +69,7 @@ const config: Configuration = {
         common: {
           name: 'common',
           minChunks: 2,
-          priority: 20,
+          priority: -10,
           reuseExistingChunk: true,
           enforce: true
         },

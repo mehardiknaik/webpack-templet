@@ -1,7 +1,9 @@
-import { Configuration, ProvidePlugin } from 'webpack';
+import { Configuration, ProvidePlugin, WebpackPluginInstance } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import DotenvWebpackPlugin from 'dotenv-webpack';
+import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+import ConfigWebpackPlugin from './scripts/ConfigWebpackPlugin';
 
 const config: Configuration = {
   entry: './src/index.tsx',
@@ -24,8 +26,7 @@ const config: Configuration = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      inject: true,
-      configScript: `<script src="config.js"></script>`
+      inject: true
     }),
     new ProvidePlugin({
       React: 'react'
@@ -37,6 +38,11 @@ const config: Configuration = {
       defaults: true,
       allowEmptyValues: true,
       safe: true
+    }),
+    new ProgressBarPlugin() as WebpackPluginInstance,
+    new ConfigWebpackPlugin({
+      input: './src/config.ts',
+      outputFileName: 'config.js'
     })
   ]
 };
