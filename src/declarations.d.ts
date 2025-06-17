@@ -14,6 +14,13 @@ declare module '*.jpg';
 
 /**
  * Global variable.
+ * Public path for Webpack.
+ * This is set by Webpack at build time.
+ */
+declare const __webpack_public_path__: string;
+
+/**
+ * Global variable.
  * True when in development mode.
  */
 declare const __DEV__: boolean;

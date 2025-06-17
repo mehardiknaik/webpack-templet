@@ -14,20 +14,31 @@ const App = () => {
   return (
     <div className={style.container}>
       <div>
-        React {process.env.APP_NAME} {process.env.NODE_ENV}
+        React <u>{process.env.APP_NAME}</u> <code>{process.env.NODE_ENV}</code>
       </div>
-      <div>App Name: {window?.__env?.NAME}</div>
-      <div>Build Created At: {__BUILD_DATE__}</div>
-      <div>Is Dev: {__DEV__ ? 'True' : 'False'}</div>
-      <div>Is Prod: {__PROD__ ? 'True' : 'False'}</div>
+      <div>
+        App Name: <code>{window?.__env?.NAME}</code>
+      </div>
+      <div>
+        Build Created At: <code>{__BUILD_DATE__}</code>
+      </div>
+      <div>
+        Is Dev: <code>{__DEV__ ? 'True' : 'False'}</code>
+      </div>
+      <div>
+        Is Prod: <code>{__PROD__ ? 'True' : 'False'}</code>
+      </div>
+      <div>
+        Public Path: <code>{__webpack_public_path__}</code>
+      </div>
       <div className={style['logo-container']}>
         <img src="./react.svg" alt="React Logo" className={style.react} />
         <img src={webpackLogo} alt="Webpack Logo" className={style.webpack} />
       </div>
-      <Counter />
       <ErrorBoundary>
-        <DemoError />
+        <Counter />
       </ErrorBoundary>
+      <DemoError />
     </div>
   );
 };
