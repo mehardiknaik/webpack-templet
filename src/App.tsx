@@ -6,7 +6,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import withSuspense from './HOC/withSuspense';
 
 const Counter = withSuspense(
-  lazy(() => import('./components/Counter')),
+  lazy(() => import(/* webpackChunkName: "counter" */ './components/Counter')),
   <>Loading Counter....</>
 );
 
@@ -18,6 +18,9 @@ const App = () => {
       </div>
       <div>
         App Name: <code>{window?.__env?.NAME}</code>
+      </div>
+      <div>
+        Version: <code>{__VERSION__}</code>
       </div>
       <div>
         Build Created At: <code>{__BUILD_DATE__}</code>

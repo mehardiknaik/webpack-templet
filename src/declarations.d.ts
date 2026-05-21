@@ -37,6 +37,12 @@ declare const __PROD__: boolean;
  */
 declare const __BUILD_DATE__: string;
 
+/**
+ * Global variable.
+ * Application version from package.json.
+ */
+declare const __VERSION__: string;
+
 interface Window {
   /**
    * Global environment variables.
