@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, version } from 'react';
 import style from './App.module.css';
 import webpackLogo from './assets/webpack.png';
 import DemoError from './components/DemoError';
@@ -20,7 +20,7 @@ const App = () => {
         App Name: <code>{window?.__env?.NAME}</code>
       </div>
       <div>
-        Version: <code>{__VERSION__}</code>
+        App Version: <code>{__VERSION__}</code> | React Version: <code>{version}</code>
       </div>
       <div>
         Build Created At: <code>{__BUILD_DATE__}</code>
