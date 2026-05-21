@@ -1,17 +1,14 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -20,16 +17,14 @@
       {
         "name": "typescript-plugin-css-modules"
       }
-    ]
+    ],
+    "types": ["node"]
   },
-  "include": [
-    "src",
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "coverage",
-    "public",
-  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "build", "dist", "coverage", "public"]
 }

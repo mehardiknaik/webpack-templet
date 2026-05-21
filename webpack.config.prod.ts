@@ -8,9 +8,6 @@ import commonConfig from './webpack.config.common';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import pkg from './package.json';
 
-const corejs = 'core-js';
-const corejsReg = new RegExp(`[\\\\/]node_modules[\\\\/]${corejs}[\\\\/]`, 'i');
-
 const SEPERATE_FOLDERS = true;
 
 const config: Configuration = {
@@ -57,7 +54,7 @@ const config: Configuration = {
       {
         test: /\.(css|scss)$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
-        exclude: /\.module\.css$/
+        exclude: /\.module\.(css|scss)$/
       }
     ]
   },
@@ -66,12 +63,6 @@ const config: Configuration = {
       chunks: 'all',
       minSize: 10000,
       cacheGroups: {
-        corejs: {
-          test: corejsReg,
-          name: corejs,
-          chunks: 'all',
-          priority: 30
-        },
         common: {
           name: 'common',
           minChunks: 2,
@@ -81,16 +72,25 @@ const config: Configuration = {
         },
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
           chunks: 'all',
-          priority: 10
+          priority: 10,
+          reuseExistingChunk: true,
+          name(module) {
+            const match = module.context?.match(
+              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+            );
+
+            const packageName = match?.[1]?.replace('@', '');
+
+            return `npm.${packageName}`;
+          }
         }
       }
     },
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        exclude: [corejsReg, /config\.js$/],
+        exclude: [/config\.js$/],
         extractComments: false,
         terserOptions: {
           compress: {
