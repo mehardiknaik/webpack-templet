@@ -92,12 +92,27 @@ const config: Configuration = {
       new TerserPlugin({
         exclude: [/config\.js$/],
         extractComments: false,
+
         terserOptions: {
+
           compress: {
-            passes: 2
+            passes: 2,
+            pure_getters: true,
+            drop_debugger: true,
+            dead_code: true,
+            unused: true,
+            toplevel: true,
+            module: true,
+            unsafe: true,
+            keep_fargs: false,
+            hoist_props: true,
+            collapse_vars: true,
+            reduce_vars: true
           },
+
           mangle: true,
-          output: {
+
+          format: {
             comments: false
           }
         }
@@ -105,7 +120,9 @@ const config: Configuration = {
       new CssMinimizerPlugin()
     ],
     usedExports: true,
-    sideEffects: true
+    sideEffects: true,
+    providedExports: true,
+    innerGraph: true
   },
 
   plugins: [

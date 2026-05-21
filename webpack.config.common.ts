@@ -6,7 +6,7 @@ import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ConfigWebpackPlugin from './scripts/ConfigWebpackPlugin';
 
 const config: Configuration = {
-  entry: './src/index.tsx',
+  entry: { app: './src/index.tsx' },
   module: {
     rules: [
       {
