@@ -97,13 +97,9 @@ const config: Configuration = {
 
           compress: {
             passes: 2,
-            pure_getters: true,
             drop_debugger: true,
             dead_code: true,
             unused: true,
-            toplevel: true,
-            module: true,
-            unsafe: true,
             keep_fargs: false,
             hoist_props: true,
             collapse_vars: true,
