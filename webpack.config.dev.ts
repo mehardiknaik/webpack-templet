@@ -1,6 +1,5 @@
 import { DefinePlugin, Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import commonConfig from './webpack.config.common';
 import { merge } from 'webpack-merge';
 import pkg from './package.json';
@@ -30,10 +29,11 @@ const config: Configuration = {
       {
         test: /\.module\.(css|scss)$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
+              sourceMap: true,
               modules: {
                 namedExport: false,
                 localIdentName: '[path][name]__[local]___[hash:5]',
@@ -45,7 +45,7 @@ const config: Configuration = {
       },
       {
         test: /\.(css|scss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: ['style-loader', 'css-loader'],
         exclude: /\.module\.(css|scss)$/
       }
     ]
@@ -54,7 +54,6 @@ const config: Configuration = {
     runtimeChunk: 'single'
   },
   plugins: [
-    new MiniCssExtractPlugin(),
     new DefinePlugin({
       __DEV__: JSON.stringify(true),
       __PROD__: JSON.stringify(false),

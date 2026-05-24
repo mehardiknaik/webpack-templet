@@ -130,7 +130,8 @@ const config: Configuration = {
       __DEV__: JSON.stringify(false),
       __PROD__: JSON.stringify(true),
       __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
-      __VERSION__: JSON.stringify(pkg.version)
+      __VERSION__: JSON.stringify(pkg.version),
+      __REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify(false)
     }),
     new BundleAnalyzerPlugin({
       openAnalyzer: false,
