@@ -7,9 +7,7 @@ const Counter = () => {
   return (
     <div className={style.container}>
       <div>Count: {count}</div>
-      <button autoFocus onClick={increment}>
-        Increment
-      </button>
+      <button onClick={increment}>Increment</button>
     </div>
   );
 };

@@ -35,8 +35,8 @@ const App = () => {
         Public Path: <code>{__webpack_public_path__}</code>
       </div>
       <div className={style['logo-container']}>
-        <img src="./react.svg" alt="React Logo" className={style.react} />
-        <img src={webpackLogo} alt="Webpack Logo" className={style.webpack} />
+        <img loading="lazy" src="./react.svg" alt="React Logo" className={style.react} />
+        <img loading="lazy" src={webpackLogo} alt="Webpack Logo" className={style.webpack} />
       </div>
       <ErrorBoundary>
         <Counter />

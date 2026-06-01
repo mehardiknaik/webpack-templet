@@ -64,7 +64,7 @@ const config: Configuration = {
       minSize: 10000,
       cacheGroups: {
         common: {
-          name: 'common',
+          chunks: 'all',
           minChunks: 2,
           priority: -10,
           reuseExistingChunk: true,
