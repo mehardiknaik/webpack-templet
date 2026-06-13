@@ -11,12 +11,8 @@ const config: Configuration = {
     rules: [
       {
         test: /\.(ts|tsx|js|jsx|mjs)$/i,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
-          }
-        }
+        exclude: /node_modules/,
+        use: 'babel-loader'
       }
     ]
   },

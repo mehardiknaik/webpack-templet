@@ -118,7 +118,8 @@ const config: Configuration = {
     usedExports: true,
     sideEffects: true,
     providedExports: true,
-    innerGraph: true
+    innerGraph: true,
+    concatenateModules: true
   },
 
   plugins: [
