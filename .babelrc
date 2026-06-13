@@ -10,7 +10,7 @@
                 "edge": "14"
             },
                 "useBuiltIns": "usage",
-                "corejs": 3,
+                "corejs": "3.39",
                 "modules": false
             }
         ],
