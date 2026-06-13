@@ -8,6 +8,7 @@
     "build": "webpack --config webpack.config.prod.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "clean": "bash scripts/clean.sh",
     "prepare": "husky"
   },
   "author": "",
