@@ -4,6 +4,8 @@ import commonConfig from './webpack.config.common';
 import { merge } from 'webpack-merge';
 import pkg from './package.json';
 
+
+process.env.BABEL_ENV = 'development';
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
 }

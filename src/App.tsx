@@ -20,6 +20,9 @@ const App = () => {
         App Name: <code>{window?.__env?.NAME}</code>
       </div>
       <div>
+        Node Env: <code>{process.env.NODE_ENV}</code>
+      </div>
+      <div>
         App Version: <code>{__VERSION__}</code> | React Version: <code>{version}</code>
       </div>
       <div>

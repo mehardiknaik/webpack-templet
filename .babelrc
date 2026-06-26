@@ -3,12 +3,12 @@
         [
             "@babel/preset-env",
             {
-            "targets": {
-                "chrome": "49",
-                "firefox": "52",
-                "safari": "10",
-                "edge": "14"
-            },
+                "targets": {
+                    "chrome": "49",
+                    "firefox": "52",
+                    "safari": "10",
+                    "edge": "14"
+                },
                 "useBuiltIns": "usage",
                 "corejs": "3.39",
                 "modules": false
@@ -30,5 +30,12 @@
                 "useESModules": true
             }
         ]
-    ]
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                "./scripts/babelDataSourcePlugin.js"
+            ]
+        }
+    }
 }

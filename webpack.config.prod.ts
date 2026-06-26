@@ -8,6 +8,7 @@ import commonConfig from './webpack.config.common';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import pkg from './package.json';
 
+process.env.BABEL_ENV = 'production';
 const SEPERATE_FOLDERS = true;
 
 const config: Configuration = {
