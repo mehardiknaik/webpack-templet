@@ -1,6 +1,7 @@
 const path = require('path');
 
-module.exports = function babelDataSourcePlugin({ types: t }) {
+module.exports = function babelDataSourcePlugin({ types: t }, args) {
+    const atrr = args?.attributes || "data-source'"
     return {
         name: 'babel-jsx-data-source-plugin',
         visitor: {
@@ -16,7 +17,7 @@ module.exports = function babelDataSourcePlugin({ types: t }) {
                 const hasDataSource = node.attributes.some(
                     (attribute) =>
                         t.isJSXAttribute(attribute) &&
-                        t.isJSXIdentifier(attribute.name, { name: 'data-source' })
+                        t.isJSXIdentifier(attribute.name, { name: atrr })
                 );
 
                 if (hasDataSource) {
@@ -31,7 +32,7 @@ module.exports = function babelDataSourcePlugin({ types: t }) {
                 const sourceValue = `${relativeFileName}:${line}:${column}`;
 
                 node.attributes.push(
-                    t.jsxAttribute(t.jsxIdentifier('data-source'), t.stringLiteral(sourceValue))
+                    t.jsxAttribute(t.jsxIdentifier(atrr), t.stringLiteral(sourceValue))
                 );
             }
         }
