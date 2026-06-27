@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = function babelDataSourcePlugin({ types: t }, args) {
-    const atrr = args?.attributes || "data-source'"
+    const atrr = args?.attributes || "data-source"
     return {
         name: 'babel-jsx-data-source-plugin',
         visitor: {
@@ -31,7 +31,7 @@ module.exports = function babelDataSourcePlugin({ types: t }, args) {
                 const column = node.loc?.start?.column ?? 0;
                 const sourceValue = `${relativeFileName}:${line}:${column}`;
 
-                node.attributes.push(
+                node.attributes.unshift(
                     t.jsxAttribute(t.jsxIdentifier(atrr), t.stringLiteral(sourceValue))
                 );
             }

@@ -37,7 +37,7 @@
                 [
                     "./scripts/babelDataSourcePlugin.js",
                     {
-                        "attributes": "d-src"
+                        "attributes": "data-source"
                     }
                 ]
             ]
