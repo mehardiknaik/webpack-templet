@@ -38,7 +38,7 @@ const config: Configuration = {
               sourceMap: true,
               modules: {
                 namedExport: false,
-                localIdentName: '[path][name]__[local]___[hash:5]',
+                localIdentName: '[name]__[local]___[hash:5]',
                 exportLocalsConvention: 'camelCase'
               }
             }
@@ -53,7 +53,34 @@ const config: Configuration = {
     ]
   },
   optimization: {
-    runtimeChunk: 'single'
+    splitChunks: {
+      chunks: 'all',
+      minSize: 10000,
+      cacheGroups: {
+        common: {
+          chunks: 'all',
+          minChunks: 2,
+          priority: -10,
+          reuseExistingChunk: true,
+          enforce: true
+        },
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+          priority: 10,
+          reuseExistingChunk: true,
+          name(module) {
+            const match = module.context?.match(
+              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+            );
+
+            const packageName = match?.[1]?.replace('@', '');
+
+            return `npm.${packageName}`;
+          }
+        }
+      }
+    },
   },
   plugins: [
     new DefinePlugin({
