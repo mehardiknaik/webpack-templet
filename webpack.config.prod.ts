@@ -60,34 +60,6 @@ const config: Configuration = {
     ]
   },
   optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 10000,
-      cacheGroups: {
-        common: {
-          chunks: 'all',
-          minChunks: 2,
-          priority: -10,
-          reuseExistingChunk: true,
-          enforce: true
-        },
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          priority: 10,
-          reuseExistingChunk: true,
-          name(module) {
-            const match = module.context?.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-            );
-
-            const packageName = match?.[1]?.replace('@', '');
-
-            return `npm.${packageName}`;
-          }
-        }
-      }
-    },
     minimize: true,
     minimizer: [
       new TerserPlugin({
@@ -95,8 +67,9 @@ const config: Configuration = {
         extractComments: false,
 
         terserOptions: {
-
+          ecma: 5,
           compress: {
+            ecma: 5,
             passes: 2,
             drop_debugger: true,
             dead_code: true,

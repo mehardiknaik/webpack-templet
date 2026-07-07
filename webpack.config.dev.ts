@@ -52,36 +52,6 @@ const config: Configuration = {
       }
     ]
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 10000,
-      cacheGroups: {
-        common: {
-          chunks: 'all',
-          minChunks: 2,
-          priority: -10,
-          reuseExistingChunk: true,
-          enforce: true
-        },
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          priority: 10,
-          reuseExistingChunk: true,
-          name(module) {
-            const match = module.context?.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-            );
-
-            const packageName = match?.[1]?.replace('@', '');
-
-            return `npm.${packageName}`;
-          }
-        }
-      }
-    },
-  },
   plugins: [
     new DefinePlugin({
       __DEV__: JSON.stringify(true),
