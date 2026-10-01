@@ -10,24 +10,8 @@ const config: Configuration = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx|js|jsx|mjs)$/i,
-        exclude: /node_modules/,
+        test: /\.(ts|tsx|js|jsx|mjs|cjs)$/i,
         use: 'babel-loader'
-      },
-      {
-        test: /\.(c?js|mjs)$/i,
-        include: /[\\/]node_modules[\\/]/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            configFile: false,
-            plugins: [
-              '@babel/plugin-transform-optional-chaining',
-              '@babel/plugin-transform-nullish-coalescing-operator'
-            ]
-          }
-        }
       }
     ]
   },
