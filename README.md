@@ -134,6 +134,7 @@ Outputs optimized bundle to `dist/`. A bundle analyzer report is generated at `d
 | ------------------ | -------------------------------------------------------------------- |
 | `npm start`        | Start the dev server at `localhost:3000` with HMR                    |
 | `npm run build`    | Create an optimized production build in `dist/`                      |
+| `npm run preview`  | Preview the production build locally                                 |
 | `npm run lint`     | Run ESLint across the project                                        |
 | `npm run lint:fix` | Run ESLint and auto-fix issues                                       |
 | `npm run clean`    | Reset `src/` to a minimal template (removes components, HOC, assets) |
