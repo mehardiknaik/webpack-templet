@@ -2,6 +2,7 @@ import { DefinePlugin, Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 import commonConfig from './webpack.config.common';
 import { merge } from 'webpack-merge';
+import { codeInspectorPlugin } from 'code-inspector-plugin';
 import pkg from './package.json';
 
 
@@ -58,7 +59,10 @@ const config: Configuration = {
       __PROD__: JSON.stringify(false),
       __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
       __VERSION__: JSON.stringify(pkg.version)
-    })
+    }),
+    codeInspectorPlugin({
+      bundler: 'webpack',
+    }),
   ],
   devtool: 'eval-source-map',
   devServer: {

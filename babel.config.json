@@ -61,14 +61,7 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        [
-          "./scripts/babelDataSourcePlugin.js",
-          {
-            "attributes": "data-source"
-          }
-        ]
-      ]
+      "plugins": []
     }
   }
 }
