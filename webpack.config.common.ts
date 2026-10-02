@@ -4,6 +4,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ConfigWebpackPlugin from './scripts/ConfigWebpackPlugin';
+import path from 'path';
 
 const config: Configuration = {
   entry: { app: './src/index.tsx' },
@@ -16,7 +17,11 @@ const config: Configuration = {
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', 'jsx']
+    extensions: ['.tsx', '.ts', '.js', 'jsx'],
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+
+    }
   },
   optimization: {
     splitChunks: {

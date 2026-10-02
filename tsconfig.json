@@ -18,7 +18,10 @@
         "name": "typescript-plugin-css-modules"
       }
     ],
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "ts-node": {
     "compilerOptions": {

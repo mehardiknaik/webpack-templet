@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack serve --config webpack.config.dev.ts",
     "build": "webpack --config webpack.config.prod.ts",
+    "preview": "serve -s dist",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "clean": "bash scripts/clean.sh",
@@ -53,6 +54,7 @@
     "mini-css-extract-plugin": "^2.10.2",
     "prettier": "^3.8.3",
     "progress-bar-webpack-plugin": "^2.1.0",
+    "serve": "^14.2.6",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.6.0",
     "ts-node": "^10.9.2",
