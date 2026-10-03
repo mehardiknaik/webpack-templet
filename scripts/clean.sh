@@ -1,6 +1,6 @@
 #!/bin/bash
 # clean.sh - Reset project to a clean state with only a minimal App.tsx
-# Removes: src/components/, src/HOC/
+# Removes: src/components/, src/HOC/, src/console.ts
 
 set -e
 
@@ -20,6 +20,18 @@ for dir in "${DIRS_TO_REMOVE[@]}"; do
     echo "  ✅ Removed src/$dir/"
   else
     echo "  ⏭️  src/$dir/ not found, skipping"
+  fi
+done
+
+# --- Remove files ---
+FILES_TO_REMOVE=("console.ts")
+
+for file in "${FILES_TO_REMOVE[@]}"; do
+  if [ -f "$SRC_DIR/$file" ]; then
+    rm -f "$SRC_DIR/$file"
+    echo "  ✅ Removed src/$file"
+  else
+    echo "  ⏭️  src/$file not found, skipping"
   fi
 done
  

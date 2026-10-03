@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div className={style.container}>
       <div>
-        React <u>{process.env.APP_NAME}</u> <code>{process.env.NODE_ENV}</code>
+        React <u>{process.env.APP_NAME}</u>
       </div>
       <div>
         App Name: <code>{window?.__env?.NAME}</code>

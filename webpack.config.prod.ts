@@ -65,7 +65,6 @@ const config: Configuration = {
       new TerserPlugin({
         exclude: [/config\.js$/],
         extractComments: false,
-
         terserOptions: {
           ecma: 5,
           compress: {
@@ -79,9 +78,7 @@ const config: Configuration = {
             collapse_vars: true,
             reduce_vars: true
           },
-
           mangle: true,
-
           format: {
             comments: false
           }
