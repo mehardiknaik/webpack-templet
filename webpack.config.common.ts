@@ -5,6 +5,7 @@ import DotenvWebpackPlugin from 'dotenv-webpack';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ConfigWebpackPlugin from './scripts/ConfigWebpackPlugin';
 import path from 'path';
+import './scripts/loadEnv';
 
 const config: Configuration = {
   entry: { app: './src/index.tsx' },

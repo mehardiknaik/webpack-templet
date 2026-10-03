@@ -1,86 +1,54 @@
-# webpack-templet
+# ⚛️ Webpack React 19 + TypeScript Starter
 
-A modern, production-ready **React 19 + TypeScript** starter template powered by **Webpack 5**. Designed for rapid development with CSS Modules, environment variables, runtime config injection, error boundaries, code splitting, and automated GitHub Pages deployment.
+A modern, production-ready **React 19 + TypeScript** starter template powered by **Webpack 5**. Designed for rapid development with an emphasis on developer experience, robust production builds, and built-in deployment pipelines.
 
 ---
 
 ## ✨ Features
 
-- **React 19 + TypeScript** — Latest React with full TypeScript support and strict mode.
-- **Webpack 5** — Separate dev / production configs merged via `webpack-merge`.
-- **CSS Modules** — Scoped styles with `*.module.css` convention and camelCase exports.
-- **Environment Variables** — `.env` support with safe defaults via `dotenv-webpack`.
-- **Runtime Config** — Inject runtime variables through `src/config.ts` → `config.js` (no rebuild needed).
-- **Compile-Time Globals** — `__DEV__`, `__PROD__`, `__VERSION__`, `__BUILD_DATE__` available everywhere.
-- **Error Boundaries & HOCs** — Built-in `ErrorBoundary`, `withErrorBoundary`, and `withSuspense` higher-order components.
-- **Code Splitting & Tree Shaking** — Automatic vendor chunking, dead-code elimination, and Terser minification.
-- **Asset Handling** — Import images, fonts (woff2), and SVGs directly in your code.
-- **ESLint + Prettier** — Pre-configured with `eslint-config-prettier` and `eslint-plugin-react-hooks`.
-- **Husky + lint-staged** — Auto-format and lint staged files on every commit.
-- **Polyfills** — `core-js 3` usage-based polyfills targeting older browsers (Chrome 49+, Firefox 52+, Safari 10+, Edge 14+).
-- **Bundle Analyzer** — Generates a static report on every production build.
-- **GitHub Actions** — CI/CD workflow for automated GitHub Pages deployment.
-- **Clean Script** — Reset the project to a minimal starter state with one command.
+- **React 19 & TypeScript** — Latest React with full strict TypeScript support.
+- **Webpack 5 Architecture** — Modularized configs (`common`, `dev`, `prod`) via `webpack-merge`.
+- **Next-Gen Developer Experience (DX)**:
+  - **Code Inspector**: Click any element in the browser to instantly open its source code in your editor.
+  - **Path Aliasing**: Import cleanly using `@/` (e.g., `import Component from '@/components/Component'`).
+  - **Typed CSS Modules**: Full autocomplete and type-safety for your `.module.css` files.
+- **Advanced Environment Management**:
+  - Build-time `.env` support with safe defaults (`dotenv-webpack`).
+  - Runtime configuration injection (change variables without rebuilding!).
+  - Compile-time globals (`__DEV__`, `__PROD__`, `__VERSION__`).
+- **Production Ready Optimizations**:
+  - Code obfuscation available out of the box to protect your source code.
+  - Automatic vendor chunking and dead-code elimination (Terser).
+  - CSS Minification and extraction.
+  - Optional asset organization into separate folders (`js/`, `css/`, etc.).
+- **Built-in Quality Control**:
+  - Pre-configured ESLint (Flat Config) & Prettier.
+  - Git Hooks (Husky + lint-staged) to enforce quality on commit.
+  - Built-in Error Boundaries and Suspense Higher-Order Components (HOCs).
+- **Automated CI/CD** — GitHub Actions workflow for zero-config GitHub Pages deployments.
+- **Legacy Browser Support** — Babel setup with `core-js` polyfills targeting Chrome 49+, Firefox 52+, Safari 10+, Edge 14+.
 
 ---
 
 ## 📁 Folder Structure
 
-```
+```text
 .
-├── .babelrc                    # Babel config (presets, polyfill targets)
-├── .env.defaults               # Default env values (fallback)
-├── .env.example                # Example env file — copy to .env
-├── .gitignore
-├── .prettierrc.json
-├── .prettierignore
-├── eslint.config.mjs           # ESLint flat config
-├── package.json
-├── tsconfig.json
-├── webpack.config.common.ts    # Shared webpack config
-├── webpack.config.dev.ts       # Development config (dev server, source maps)
-├── webpack.config.prod.ts      # Production config (minification, chunking)
-├── README.md
-│
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # GitHub Pages deploy workflow
-│
-├── .husky/
-│   └── pre-commit              # Runs lint-staged before each commit
-│
-├── .vscode/
-│   └── settings.json
-│
-├── public/
-│   └── react.svg               # Static assets copied to dist/
-│
-├── scripts/
-│   ├── clean.sh                # Reset project to minimal template
-│   └── ConfigWebpackPlugin.ts  # Custom plugin: compiles config.ts → config.js
-│
+├── .babelrc / babel.config.json # Babel configs & polyfill targets
+├── .env.defaults                # Fallback environment variables
+├── .env.example                 # Example environment schema
+├── eslint.config.mjs            # ESLint flat config
+├── tsconfig.json                # TypeScript & path alias configs
+├── webpack.config.*.ts          # Webpack configurations (common, dev, prod)
+├── .github/workflows/deploy.yml # GitHub Pages automated deployment
+├── scripts/                     # Utility scripts (Clean, ConfigWebpackPlugin)
 └── src/
-    ├── index.html              # HTML template
-    ├── index.tsx               # App entry point
-    ├── index.css               # Global styles
-    ├── App.tsx                 # Root component
-    ├── App.module.css          # Root component styles (CSS Module)
-    ├── config.ts               # Runtime config (injected as config.js)
-    ├── declarations.d.ts       # TypeScript declarations (CSS, images, globals)
-    │
-    ├── assets/                 # Fonts, images
-    │   ├── Sohne.woff2
-    │   └── webpack.png
-    │
-    ├── components/             # Reusable components
-    │   ├── Counter.tsx
-    │   ├── Counter.module.css
-    │   ├── DemoError.tsx
-    │   └── ErrorBoundary.tsx
-    │
-    └── HOC/                    # Higher-order components
-        ├── withErrorBoundary.tsx
-        └── withSuspense.tsx
+    ├── index.tsx                # App entry point
+    ├── config.ts                # Runtime configuration
+    ├── declarations.d.ts        # TypeScript typings
+    ├── assets/                  # Static assets (fonts, images)
+    ├── components/              # Reusable React components
+    └── HOC/                     # Higher-Order Components (Error Boundary, etc.)
 ```
 
 ---
@@ -92,65 +60,52 @@ A modern, production-ready **React 19 + TypeScript** starter template powered by
 - **Node.js** ≥ 20 (recommended)
 - **npm** ≥ 9
 
-### Installation
+### Installation & Setup
 
-```sh
-# Clone the repository
-git clone https://github.com/<your-username>/webpack-templet.git
-cd webpack-templet
+1. **Clone and Install:**
 
-# Install dependencies
-npm install
-```
+   ```sh
+   git clone <repository-url> webpack-templet
+   cd webpack-templet
+   npm install
+   ```
 
-### Setup Environment
+2. **Environment Variables:**
+   Copy the example environment file to `.env`:
 
-```sh
-# Copy the example env file and edit as needed
-cp .env.example .env
-```
+   ```sh
+   cp .env.example .env
+   ```
 
-### Start Development Server
-
-```sh
-npm start
-```
-
-Opens at [http://localhost:3000](http://localhost:3000) with hot module replacement enabled.
-
-### Build for Production
-
-```sh
-npm run build
-```
-
-Outputs optimized bundle to `dist/`. A bundle analyzer report is generated at `dist/report.html`.
+3. **Start Development Server:**
+   ```sh
+   npm start
+   ```
+   Opens at [http://localhost:3000](http://localhost:3000) with Hot Module Replacement. **Bonus:** Hold `Alt/Option`/`Shift` and click on any UI element in the browser to instantly open the corresponding React component in your IDE!
 
 ---
 
-## 📜 Scripts
+## 📜 Available Scripts
 
 | Command            | Description                                                          |
 | ------------------ | -------------------------------------------------------------------- |
-| `npm start`        | Start the dev server at `localhost:3000` with HMR                    |
+| `npm start`        | Start the dev server at `localhost:3000` with HMR and Code Inspector |
 | `npm run build`    | Create an optimized production build in `dist/`                      |
 | `npm run preview`  | Preview the production build locally                                 |
 | `npm run lint`     | Run ESLint across the project                                        |
 | `npm run lint:fix` | Run ESLint and auto-fix issues                                       |
-| `npm run clean`    | Reset `src/` to a minimal template (removes components, HOC, assets) |
+| `npm run clean`    | Reset `src/` to a minimal template (removes demo components & HOCs)  |
 | `npm run prepare`  | Install Husky Git hooks (runs automatically after `npm install`)     |
+
+> **Tip:** Running `npm run clean` is highly recommended if you are starting a fresh project from this template. It cleans up the boilerplate UI components.
 
 ---
 
-## ⚙️ Environment Variables
+## ⚙️ Configuration & Architecture
 
-### Build-Time Variables (`.env`)
+### 1. Environment Variables
 
-Managed by `dotenv-webpack`. Create a `.env` file from the example:
-
-```sh
-cp .env.example .env
-```
+Managed via `dotenv-webpack`.
 
 | File            | Purpose                                                |
 | --------------- | ------------------------------------------------------ |
@@ -158,153 +113,83 @@ cp .env.example .env
 | `.env.defaults` | Fallback values used when a key is missing from `.env` |
 | `.env.example`  | Documents available keys — used as a safe schema       |
 
-Access in code via `process.env.APP_NAME`.
+**Built-in Build-Time Variables:**
+| Variable | Type | Description |
+| -------------------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
+| `APP_NAME` | `string` | The name of the application. |
+| `SEPERATE_FOLDERS` | `boolean` | If `true`, groups emitted assets into separate folders (`chunk/`, `css/`, `fonts/`, `images/`) inside `dist/`. |
+| `WEBPACK_OBFUSCATOR` | `boolean` | If `true`, applies code obfuscation to the production JavaScript build (excluding vendor chunks). |
 
-### Compile-Time Globals
+**Compile-Time Globals:**
+Available in all files (injected via Webpack `DefinePlugin`):
 
-Injected by `DefinePlugin` — available in all source files:
+- `__DEV__` (boolean)
+- `__PROD__` (boolean)
+- `__VERSION__` (string)
+- `__BUILD_DATE__` (string)
 
-| Variable         | Type      | Description                                  |
-| ---------------- | --------- | -------------------------------------------- |
-| `__DEV__`        | `boolean` | `true` in development, `false` in production |
-| `__PROD__`       | `boolean` | `true` in production, `false` in development |
-| `__VERSION__`    | `string`  | Version from `package.json`                  |
-| `__BUILD_DATE__` | `string`  | ISO timestamp of the build                   |
+**Runtime Configuration (`src/config.ts`):**
+Values that need to change **without rebuilding** the app (e.g., API URLs changing per environment). This compiles to `config.js` and is injected into the `<head>`, meaning you can swap this single file on your server to change environments without redeploying.
 
-### Runtime Config (`src/config.ts`)
+### 2. Path Aliasing
 
-For values that need to change **without rebuilding** (e.g., API URLs per environment):
+No more `../../../components`. The project uses `@/` to map to the `src` directory automatically via `tsconfig.json` and Webpack resolve aliases.
 
-```ts
-// src/config.ts
-(function (window: Window) {
-  window.__env = window.__env || {};
-  window.__env.NAME = 'Config Name';
-})(window);
+```tsx
+// Instead of this:
+import Button from '../../components/Button';
+// Do this:
+import Button from '@/components/Button';
 ```
 
-This file is compiled to `config.js` by the custom `ConfigWebpackPlugin` and injected as a `<script>` tag in `<head>` before the app bundle. In production, you can swap the `config.js` file on the server to change values without redeploying.
+### 3. Typed CSS Modules
 
-Access in code via `window.__env.NAME`.
+Any file named `*.module.css` or `*.module.scss` is treated as a CSS Module. Thanks to `typescript-plugin-css-modules` in `tsconfig.json`, your IDE will provide autocomplete for class names!
 
----
+```tsx
+import styles from './App.module.css';
 
-## 🧹 Clean Script
-
-Reset the project to a minimal starter state:
-
-```sh
-npm run clean
+// IDE will autocomplete `styles.container`
+const App = () => <div className={styles.container}>Hello</div>;
 ```
 
-This removes `src/components/`, `src/HOC/`, and `src/assets/`, and resets `App.tsx`, `App.module.css`, and `index.css` to minimal templates. Useful when using this repo as a starting point for a new project.
+### 4. Production Optimizations (`webpack.config.prod.ts`)
 
----
-
-## 🔧 Webpack Configuration
-
-The webpack setup is split into three files:
-
-| File                       | Purpose                                                                                        |
-| -------------------------- | ---------------------------------------------------------------------------------------------- |
-| `webpack.config.common.ts` | Shared config — entry, Babel loader, HTML plugin, env plugin, config plugin                    |
-| `webpack.config.dev.ts`    | Dev server (`localhost:3000`), source maps, `style-loader`, HMR                                |
-| `webpack.config.prod.ts`   | Minification (Terser + CSS Minimizer), `MiniCssExtractPlugin`, code splitting, bundle analyzer |
-
-### Production Optimizations
-
-- **Vendor Splitting** — Each `node_modules` package gets its own chunk (`npm.<package-name>.js`)
-- **Common Chunks** — Shared code across 2+ entry points is extracted automatically
-- **Terser** — Multi-pass compression with dead-code elimination
-- **CSS Extraction** — Styles extracted to separate `.css` files
-- **Content Hashing** — Filenames include hashes for long-term caching
-- **Tree Shaking** — `usedExports`, `sideEffects`, and `innerGraph` enabled
+- **Vendor Splitting:** Each `node_modules` package gets its own chunk.
+- **Minification:** Multi-pass Terser compression + CSS Minimizer.
+- **Obfuscation:** Protect your source code using `WEBPACK_OBFUSCATOR`.
+- **Bundle Analysis:** A visual report is automatically generated at `dist/report.html` on every build.
 
 ---
 
 ## 🧪 Linting & Formatting
 
-### ESLint
+The project ensures code quality using:
 
-```sh
-npm run lint          # Check for issues
-npm run lint:fix      # Auto-fix issues
-```
-
-### Prettier
-
-Configured via `.prettierrc.json`. Runs automatically on staged files via `lint-staged`.
-
-### Pre-commit Hook (Husky + lint-staged)
-
-On every commit, Husky triggers `lint-staged` which:
-
-- Runs `eslint --fix` and `prettier --write` on staged `*.ts` / `*.tsx` files
-- Runs `prettier --write` on staged `*.css` / `*.scss` files
-- Runs `prettier --write` on staged `*.json` / `*.md` files
+- **ESLint** (Flat config) for logic and React rules.
+- **Prettier** for formatting.
+- **Husky & lint-staged**: Hooks into `git commit` to automatically format and fix your staged files before they are committed.
 
 ---
 
 ## 🌐 Browser Targets
 
-Configured in `.babelrc` with `core-js 3` usage-based polyfills:
+Configured in `babel.config.json` utilizing `@babel/preset-env` and `core-js 3` usage-based polyfills.
 
-| Browser | Minimum Version |
-| ------- | --------------- |
-| Chrome  | 49              |
-| Firefox | 52              |
-| Safari  | 10              |
-| Edge    | 14              |
+- Chrome ≥ 49
+- Firefox ≥ 52
+- Safari ≥ 10
+- Edge ≥ 14
 
 ---
 
 ## 🚢 Deployment (GitHub Pages)
 
-The project includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that:
+A GitHub Actions workflow (`.github/workflows/deploy.yml`) is included.
 
-1. Triggers on push/PR to `main`, or manually via `workflow_dispatch`
-2. Installs dependencies and builds the project
-3. Deploys the `dist/` folder to GitHub Pages
-
-### Setup
-
-1. Go to your repository **Settings → Pages**
-2. Set **Source** to **GitHub Actions**
-3. Push to `main` — the workflow runs automatically
-
----
-
-## 📂 CSS Modules
-
-Any file named `*.module.css` is treated as a CSS Module:
-
-```tsx
-import style from './App.module.css';
-
-const App = () => <div className={style.container}>Hello</div>;
-```
-
-- **Development**: Class names are readable — `[path][name]__[local]___[hash:5]`
-- **Production**: Class names are minified — `[hash:5]`
-- **Convention**: Exports use `camelCase` (e.g., `.my-class` → `style.myClass`)
-
----
-
-## 📦 Key Dependencies
-
-| Package                                          | Purpose                              |
-| ------------------------------------------------ | ------------------------------------ |
-| `react` / `react-dom`                            | UI framework                         |
-| `core-js`                                        | Polyfills for older browsers         |
-| `webpack` / `webpack-cli` / `webpack-dev-server` | Build tooling                        |
-| `babel-loader` + presets                         | TypeScript & JSX transpilation       |
-| `dotenv-webpack`                                 | Build-time `.env` variable injection |
-| `html-webpack-plugin`                            | HTML template processing             |
-| `mini-css-extract-plugin`                        | CSS extraction for production        |
-| `terser-webpack-plugin`                          | JavaScript minification              |
-| `webpack-bundle-analyzer`                        | Bundle size visualization            |
-| `eslint` / `prettier`                            | Code quality & formatting            |
-| `husky` / `lint-staged`                          | Git hooks & staged file processing   |
+1. Go to your repository **Settings → Pages**.
+2. Set **Source** to **GitHub Actions**.
+3. Push to `main` — the workflow runs automatically, building and deploying your app!
 
 ---
 
