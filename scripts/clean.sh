@@ -34,6 +34,14 @@ for file in "${FILES_TO_REMOVE[@]}"; do
     echo "  ⏭️  src/$file not found, skipping"
   fi
 done
+
+# --- Clean index.tsx ---
+if [ -f "$SRC_DIR/index.tsx" ]; then
+  # Remove the console import line (compatible with macOS and Linux sed)
+  sed -i.bak '/import .*@\/console/d' "$SRC_DIR/index.tsx"
+  rm -f "$SRC_DIR/index.tsx.bak"
+  echo "  ✅ Removed console import from src/index.tsx"
+fi
  
 # --- index.css ---
 cat > "$SRC_DIR/index.css" << 'EOF'
