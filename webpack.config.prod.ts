@@ -98,7 +98,7 @@ const config: Configuration = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
+      filename: '[name].[chunkhash].css',
       chunkFilename: `${SEPERATE_FOLDERS ? 'css/' : ''}[name].[chunkhash].css`
     }),
     new DefinePlugin({
