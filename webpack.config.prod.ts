@@ -18,8 +18,8 @@ const config: Configuration = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: `${SEPERATE_FOLDERS ? 'chunk/' : ''}[name].[contenthash].js`,
+    filename: '[name].[chunkhash].js',
+    chunkFilename: `${SEPERATE_FOLDERS ? 'chunk/' : ''}[name].[chunkhash].js`,
     hashDigestLength: 7,
     clean: true
   },
@@ -99,7 +99,7 @@ const config: Configuration = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
-      chunkFilename: `${SEPERATE_FOLDERS ? 'css/' : ''}[name].[contenthash].css`
+      chunkFilename: `${SEPERATE_FOLDERS ? 'css/' : ''}[name].[chunkhash].css`
     }),
     new DefinePlugin({
       __DEV__: JSON.stringify(false),
@@ -123,7 +123,7 @@ const config: Configuration = {
       selfDefending: true,
       stringArray: true,
       stringArrayThreshold: 0.75,
-      StringArrayEncoding: ['rc4']
+      stringArrayEncoding: ['rc4']
     }, ['npm.*.js', 'config.js'])
   ]
 };
