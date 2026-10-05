@@ -37,7 +37,7 @@ const App = () => {
       <div>
         Public Path: <code>{__webpack_public_path__}</code>
       </div>
-      <div className={style['logo-container']}>
+      <div className={style.logoContainer}>
         <img loading="lazy" src="./react.svg" alt="React Logo" className={style.react} />
         <img loading="lazy" src={webpackLogo} alt="Webpack Logo" className={style.webpack} />
       </div>
