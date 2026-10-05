@@ -51,7 +51,7 @@ echo "  ✅ Reset src/index.css to minimal template"
 
 # --- Reset App.tsx to minimal template ---
 cat > "$SRC_DIR/App.tsx" << 'EOF'
-import style from './App.module.css';
+import style from '@/App.module.css';
 
 const App = () => {
   return (
