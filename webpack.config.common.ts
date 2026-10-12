@@ -9,6 +9,7 @@ import './scripts/loadEnv';
 
 const config: Configuration = {
   entry: { app: './src/index.tsx' },
+  target: ['web', 'es5'],
   module: {
     rules: [
       {
