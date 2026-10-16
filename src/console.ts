@@ -8,6 +8,8 @@ log(
 
 log(
   '%cApp Name - ' +
+    process.env.APP_NAME +
+    ' ' +
     window?.__env?.NAME +
     '\nEnvironment - ' +
     process.env.NODE_ENV +

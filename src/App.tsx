@@ -1,7 +1,6 @@
 import { lazy, version } from 'react';
 import style from '@/App.module.css';
 import webpackLogo from '@/assets/webpack.png';
-import DemoError from '@/components/DemoError';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import withSuspense from '@/HOC/withSuspense';
 
@@ -44,7 +43,6 @@ const App = () => {
       <ErrorBoundary>
         <Counter />
       </ErrorBoundary>
-      <DemoError />
     </div>
   );
 };
