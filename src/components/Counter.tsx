@@ -13,7 +13,9 @@ const Counter = () => {
   return (
     <div className={style.container}>
       <div>Count: {count}</div>
-      <button onClick={increment}>Increment</button>
+      <button className={style.button} onClick={increment}>
+        Increment
+      </button>
       <p className={style.note}>This throw error when count is greater than 5.</p>
     </div>
   );

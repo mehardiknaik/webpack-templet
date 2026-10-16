@@ -35,6 +35,29 @@ for file in "${FILES_TO_REMOVE[@]}"; do
   fi
 done
 
+# --- Clean index.html ---
+if [ -f "$SRC_DIR/index.html" ]; then
+  cat > "$SRC_DIR/index.html" << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="react.svg" />
+  <title>Webpack Templet</title>
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>
+EOF
+  echo "  ✅ Reset src/index.html to minimal template"
+fi
+
 # --- Clean index.tsx ---
 if [ -f "$SRC_DIR/index.tsx" ]; then
   # Remove the console import line (compatible with macOS and Linux sed)
