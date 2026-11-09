@@ -59,7 +59,8 @@ const config: Configuration = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      inject: true
+      inject: true,
+      minify: true
     }),
     new ProvidePlugin({
       React: 'react'
