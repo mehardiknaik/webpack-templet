@@ -44,12 +44,13 @@ const config: Configuration = {
               }
             }
           },
-          "sass-loader"
+          "sass-loader",
+          '@tailwindcss/webpack'
         ]
       },
       {
         test: /\.(css|scss)$/,
-        use: ['style-loader', 'css-loader', "sass-loader"],
+        use: ['style-loader', 'css-loader', "sass-loader", '@tailwindcss/webpack'],
         exclude: /\.module\.(css|scss)$/
       }
     ]

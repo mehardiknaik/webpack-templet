@@ -11,9 +11,9 @@ const Counter = withSuspense(
 
 const App = () => {
   return (
-    <div className={style.container}>
+    <div className={'bg-red-100 flex flex-col items-center h-screen'}>
       <div>
-        React <u>{process.env.APP_NAME}</u>
+        React <u> {process.env.APP_NAME}</u>
       </div>
       <div>
         App Name: <code>{window?.__env?.NAME}</code>

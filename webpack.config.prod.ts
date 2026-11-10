@@ -53,12 +53,13 @@ const config: Configuration = {
               }
             }
           },
-          "sass-loader"
+          "sass-loader",
+          '@tailwindcss/webpack'
         ]
       },
       {
         test: /\.(css|scss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', "sass-loader", '@tailwindcss/webpack'],
         exclude: /\.module\.(css|scss)$/
       }
     ]
