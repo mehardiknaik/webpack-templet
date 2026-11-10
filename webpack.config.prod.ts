@@ -40,7 +40,7 @@ const config: Configuration = {
         }
       },
       {
-        test: /\.module\.(css|scss)$/,
+        test: /\.module\.(css|s[ac]ss)$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -57,7 +57,7 @@ const config: Configuration = {
         ]
       },
       {
-        test: /\.(css|scss)$/,
+        test: /\.(css|s[ac]ss)$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', "sass-loader"],
         exclude: /\.module\.(css|scss)$/
       }
