@@ -67,14 +67,14 @@ if [ -f "$SRC_DIR/index.tsx" ]; then
 fi
  
 # --- index.css ---
-cat > "$SRC_DIR/index.css" << 'EOF'
+cat > "$SRC_DIR/index.scss" << 'EOF'
 
 EOF
 echo "  ✅ Reset src/index.css to minimal template"
 
 # --- Reset App.tsx to minimal template ---
 cat > "$SRC_DIR/App.tsx" << 'EOF'
-import style from '@/App.module.css';
+import style from '@/App.module.scss';
 
 const App = () => {
   return (
@@ -89,7 +89,7 @@ EOF
 echo "  ✅ Reset src/App.tsx to minimal template"
 
 # --- Reset App.module.css ---
-cat > "$SRC_DIR/App.module.css" << 'EOF'
+cat > "$SRC_DIR/App.module.scss" << 'EOF'
 .container {
   display: flex;
   flex-direction: column;

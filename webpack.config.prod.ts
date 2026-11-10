@@ -52,12 +52,13 @@ const config: Configuration = {
                 exportLocalsConvention: 'camelCase'
               }
             }
-          }
+          },
+          "sass-loader"
         ]
       },
       {
         test: /\.(css|scss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', "sass-loader"],
         exclude: /\.module\.(css|scss)$/
       }
     ]

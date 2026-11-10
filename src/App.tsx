@@ -1,5 +1,5 @@
 import { lazy, version } from 'react';
-import style from '@/App.module.css';
+import style from '@/App.module.scss';
 import webpackLogo from '@/assets/webpack.png';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import withSuspense from '@/HOC/withSuspense';

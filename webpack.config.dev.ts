@@ -43,12 +43,13 @@ const config: Configuration = {
                 exportLocalsConvention: 'camelCase'
               }
             }
-          }
+          },
+          "sass-loader"
         ]
       },
       {
         test: /\.(css|scss)$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', "sass-loader"],
         exclude: /\.module\.(css|scss)$/
       }
     ]
