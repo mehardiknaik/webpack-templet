@@ -44,12 +44,31 @@ const config: Configuration = {
               }
             }
           },
-          "sass-loader"
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
         ]
       },
       {
         test: /\.(css|s[ac]ss)$/,
-        use: ['style-loader', 'css-loader', "sass-loader"],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          }
+        ],
         exclude: /\.module\.(css|scss)$/
       }
     ]

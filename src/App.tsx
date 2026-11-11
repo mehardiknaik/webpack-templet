@@ -6,7 +6,7 @@ import withSuspense from '@/HOC/withSuspense';
 
 const Counter = withSuspense(
   lazy(() => import(/* webpackChunkName: "counter" */ './components/Counter')),
-  <>Loading Counter....</>
+  <div className={style.loader}>Loading Counter....</div>
 );
 
 const App = () => {
