@@ -70,7 +70,8 @@ const config: Configuration = {
     new DotenvWebpackPlugin({
       defaults: true,
       allowEmptyValues: true,
-      safe: true
+      safe: true,
+      systemvars: true
     }),
     new ProgressBarPlugin() as WebpackPluginInstance,
     new ConfigWebpackPlugin({
