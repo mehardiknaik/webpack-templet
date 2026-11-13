@@ -73,9 +73,9 @@ const config: Configuration = {
 
         // Mobile and browser
         viewport: 'width=device-width, initial-scale=1.0',
-        themeColor: '#00D09C',
-        colorScheme: 'light',
-        applicationName: pkg.name,
+        "theme-color": '#00D09C',
+        "color-scheme": 'light',
+        "application-name": pkg.name,
 
         // Icons
         favicon: 'react.svg',
@@ -90,8 +90,7 @@ const config: Configuration = {
         removeRedundantAttributes: true,
         removeEmptyAttributes: true,
         minifyCSS: true,
-        minifyJS: true,
-        caseSensitive: true,
+        minifyJS: true
       },
     }),
     new ProvidePlugin({
