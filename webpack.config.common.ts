@@ -4,6 +4,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ConfigWebpackPlugin from './scripts/ConfigWebpackPlugin';
+import rehypeHighlight from 'rehype-highlight'
 import path from 'path';
 import './scripts/loadEnv';
 
@@ -15,14 +16,26 @@ const config: Configuration = {
       {
         test: /\.(ts|tsx|js|jsx|mjs|cjs)$/i,
         use: 'babel-loader'
-      }
+      },
+      {
+        test: /\.(md|mdx)$/,
+        use: [
+          'babel-loader',
+          {
+            loader: '@mdx-js/loader',
+            options: {
+              providerImportSource: '@mdx-js/react',
+              rehypePlugins: [rehypeHighlight],
+            },
+          },
+        ],
+      },
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.md', '.mdx'],
     alias: {
       '@': path.resolve(__dirname, './src'),
-
     }
   },
   optimization: {

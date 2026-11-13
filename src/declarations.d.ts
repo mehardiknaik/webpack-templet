@@ -1,4 +1,9 @@
 /**
+ * css declaration
+ */
+declare module '*.css';
+
+/**
  * Module declaration for image files.
  * Allows importing images as modules.
  */
@@ -6,6 +11,29 @@ declare module '*.png';
 declare module '*.svg';
 declare module '*.jpeg';
 declare module '*.jpg';
+
+/**
+ * Module declaration for MDX files.
+ * Allows importing MDX files as modules.
+ */
+declare module '*.mdx' {
+  import type { MDXProps } from 'mdx/types';
+  import type { JSX } from 'react';
+
+  export default function MDXContent(props: MDXProps): JSX.Element;
+  export const meta: Record<string, unknown>;
+}
+/**
+ * Module declaration for MD files.
+ * Allows importing MD files as modules.
+ */
+declare module '*.md' {
+  import type { MDXProps } from 'mdx/types';
+  import type { JSX } from 'react';
+
+  export default function MDXContent(props: MDXProps): JSX.Element;
+  export const meta: Record<string, unknown>;
+}
 
 /**
  * Global variable.
