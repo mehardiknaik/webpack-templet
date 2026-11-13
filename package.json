@@ -1,7 +1,7 @@
 {
   "name": "webpack-templet",
   "version": "1.0.0",
-  "description": "",
+  "description": "webpack-templet is a modern web application template built with React, TypeScript, and Webpack. It provides a solid foundation for building fast, scalable, and maintainable web applications.",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --config webpack.config.dev.ts",
