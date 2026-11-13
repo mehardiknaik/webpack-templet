@@ -62,7 +62,17 @@ const config: Configuration = {
       inject: true,
       templateParameters: {
         __BUILD_DATE__: new Date().toISOString(),
-      }
+      },
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeEmptyAttributes: true,
+        removeAttributeQuotes: true,
+        minifyCSS: true,
+        minifyJS: true,
+        caseSensitive: true,
+      },
     }),
     new ProvidePlugin({
       React: 'react'
