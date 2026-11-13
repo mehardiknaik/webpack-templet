@@ -14,51 +14,99 @@ permissions:
   pull-requests: write
   issues: write
 
-concurrency:
-  group: pr-preview-${{ github.event.number }}
-  cancel-in-progress: true
-
 jobs:
   deploy:
     name: Deploy PR Preview
-    if: github.event.action != 'closed'
+    if: >
+      github.event.action != 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout PR
+      - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          path: source
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: source/package-lock.json
 
       - name: Install dependencies
+        working-directory: source
         run: npm ci
 
       - name: Build application
+        working-directory: source
         run: npm run build
         env:
-          PUBLIC_URL: /${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}
+          PUBLIC_URL: /webpack-templet/pr-preview/pr-${{ github.event.number }}/
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          destination_dir: pr-preview/pr-${{ github.event.number }}
-          keep_files: true
+          ref: gh-pages
+          path: publish
+          fetch-depth: 0
 
-      - name: Add Preview URL to PR
+      - name: Replace previous PR build
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          TARGET="publish/pr-preview/pr-${PR_NUMBER}"
+
+          # Delete old hashed chunks for this PR only.
+          rm -rf "$TARGET"
+
+          mkdir -p "$TARGET"
+
+          # Copy the latest build.
+          cp -a source/dist/. "$TARGET/"
+
+      - name: Commit and push preview
+        working-directory: publish
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No preview changes."
+            exit 0
+          fi
+
+          git commit -m "Deploy PR #${{ github.event.number }}"
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin gh-pages
+            git rebase origin/gh-pages
+
+            if git push origin HEAD:gh-pages; then
+              echo "Preview deployed."
+              exit 0
+            fi
+
+            echo "Push failed. Retrying..."
+            sleep 3
+          done
+
+          echo "Preview deployment failed."
+          exit 1
+
+      - name: Add preview URL to PR
         uses: actions/github-script@v7
         with:
           script: |
             const { owner, repo } = context.repo;
-            const prNumber = context.issue.number;
+            const number = context.issue.number;
 
             const url =
-              `https://${owner}.github.io/${repo}/pr-preview/pr-${prNumber}/`;
+              `https://${owner}.github.io/${repo}/pr-preview/pr-${number}/`;
 
             const marker = '<!-- pr-preview-comment -->';
 
@@ -67,17 +115,17 @@ jobs:
 
             **Preview URL:** ${url}
 
-            Preview is automatically updated when new commits are pushed.`;
+            This preview updates automatically with new commits.`;
 
             const { data: comments } =
               await github.rest.issues.listComments({
                 owner,
                 repo,
-                issue_number: prNumber
+                issue_number: number
               });
 
-            const existing = comments.find(comment =>
-              comment.body.includes(marker)
+            const existing = comments.find(c =>
+              c.body.includes(marker)
             );
 
             if (existing) {
@@ -91,7 +139,7 @@ jobs:
               await github.rest.issues.createComment({
                 owner,
                 repo,
-                issue_number: prNumber,
+                issue_number: number,
                 body
               });
             }
@@ -106,45 +154,63 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: gh-pages
+          path: publish
           fetch-depth: 0
 
-      - name: Remove preview directory
+      - name: Delete PR preview
+        working-directory: publish
         env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
-          DIR="pr-preview/pr-${PR_NUMBER}"
+          TARGET="pr-preview/pr-${PR_NUMBER}"
 
-          rm -rf "$DIR"
+          rm -rf "$TARGET"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add -A
 
-          if ! git diff --cached --quiet; then
-            git commit -m "Remove PR #${PR_NUMBER} preview"
-            git push origin HEAD:gh-pages
-          else
-            echo "Preview directory does not exist."
+          if git diff --cached --quiet; then
+            echo "Preview already removed."
+            exit 0
           fi
+
+          git commit -m "Remove PR #${PR_NUMBER} preview"
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin gh-pages
+            git rebase origin/gh-pages
+
+            if git push origin HEAD:gh-pages; then
+              echo "PR preview removed."
+              exit 0
+            fi
+
+            echo "Push failed. Retrying..."
+            sleep 3
+          done
+
+          echo "Cleanup failed."
+          exit 1
 
       - name: Update PR comment
         uses: actions/github-script@v7
         with:
           script: |
             const { owner, repo } = context.repo;
-            const prNumber = context.issue.number;
+            const number = context.issue.number;
             const marker = '<!-- pr-preview-comment -->';
 
             const { data: comments } =
               await github.rest.issues.listComments({
                 owner,
                 repo,
-                issue_number: prNumber
+                issue_number: number
               });
 
-            const existing = comments.find(comment =>
-              comment.body.includes(marker)
+            const existing = comments.find(c =>
+              c.body.includes(marker)
             );
 
             if (existing) {
@@ -155,6 +221,6 @@ jobs:
                 body: `${marker}
             ## 🗑️ PR Preview Removed
 
-            This preview is no longer available because the PR was closed.`
+            This preview was removed because the PR was closed.`
               });
             }
