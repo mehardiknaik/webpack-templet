@@ -1,17 +1,27 @@
-import { lazy, version } from 'react';
+import { HTMLAttributes, lazy, version } from 'react';
 import style from '@/App.module.scss';
 import webpackLogo from '@/assets/webpack.png';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import withSuspense from '@/HOC/withSuspense';
+import { MDXProvider } from '@mdx-js/react';
+import Guide from '@/components/guide.mdx';
+const Read = lazy(() => import('@/components/README.md'));
+import 'highlight.js/styles/github-dark.css';
 
 const Counter = withSuspense(
   lazy(() => import(/* webpackChunkName: "counter" */ './components/Counter')),
   <div className={style.loader}>Loading Counter....</div>
 );
 
+const mdxComponents = {
+  h1: (props: HTMLAttributes<HTMLHeadingElement>) => (
+    <h1 style={{ color: '#1e293b', borderBottom: '1px solid #cbd5e1' }} {...props} />
+  )
+};
+
 const App = () => {
   return (
-    <div className={style.container}>
+    <div>
       <div>
         React <u>{process.env.APP_NAME}</u>
       </div>
@@ -43,6 +53,10 @@ const App = () => {
       <ErrorBoundary>
         <Counter />
       </ErrorBoundary>
+      <MDXProvider components={mdxComponents}>
+        <Guide />
+        <Read />
+      </MDXProvider>
     </div>
   );
 };

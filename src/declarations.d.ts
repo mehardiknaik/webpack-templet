@@ -15,6 +15,29 @@ declare module '*.jpeg';
 declare module '*.jpg';
 
 /**
+ * Module declaration for MDX files.
+ * Allows importing MDX files as modules.
+ */
+declare module '*.mdx' {
+  import type { MDXProps } from 'mdx/types';
+  import type { JSX } from 'react';
+
+  export default function MDXContent(props: MDXProps): JSX.Element;
+  export const meta: Record<string, unknown>;
+}
+/**
+ * Module declaration for MD files.
+ * Allows importing MD files as modules.
+ */
+declare module '*.md' {
+  import type { MDXProps } from 'mdx/types';
+  import type { JSX } from 'react';
+
+  export default function MDXContent(props: MDXProps): JSX.Element;
+  export const meta: Record<string, unknown>;
+}
+
+/**
  * Global variable.
  * Public path for Webpack.
  * This is set by Webpack at build time.

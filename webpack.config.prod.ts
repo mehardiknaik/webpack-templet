@@ -88,7 +88,18 @@ const config: Configuration = {
           }
         }
       }),
-      new CssMinimizerPlugin()
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'default',
+            {
+              discardComments: {
+                removeAll: true,
+              },
+            },
+          ],
+        },
+      })
     ],
     usedExports: true,
     sideEffects: true,

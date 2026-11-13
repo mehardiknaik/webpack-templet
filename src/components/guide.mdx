@@ -1,0 +1,46 @@
+import Alert from './Alert';
+
+export const meta = {
+  title: 'Getting Started Guide',
+  author: 'Hardik',
+};
+
+export const Badge = ({ text }) => (
+  <span style={{ background: '#e2e8f0', padding: '2px 8px', borderRadius: '12px', fontSize: '0.85em' }}>
+    {text}
+  </span>
+);
+
+# {meta.title} <Badge text="v1.0" /> {meta.author}
+
+Welcome to the documentation. You can write **standard Markdown** lists and formatting right alongside JSX.
+
+- Fast compilation with Webpack
+- Full React component support
+- Clean, readable content
+
+<Alert type="warning">
+
+**Note:** Leave blank lines around Markdown content inside a JSX component so MDX parses the **bold** text properly.
+
+</Alert>
+
+## Interactive Example
+
+You can also pass props directly to your components, such as `user="Developer"`.
+
+#### Node Env: {process.env.NODE_ENV}
+
+```tsx
+import React from 'react';
+
+function MyComponent() {
+  return (
+    <div>
+      <h1>Hello from React!</h1>
+    </div>
+  );
+}
+
+export default MyComponent;
+```
