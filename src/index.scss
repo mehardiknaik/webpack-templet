@@ -70,6 +70,7 @@ h6 {
 p {
   text-wrap: pretty;
 }
+
 h1,
 h2,
 h3,
@@ -85,4 +86,43 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+$color-canvas-default: #ffffff;
+$color-canvas-subtle: #f6f8fa;
+$color-border-default: #d0d7de;
+$color-border-muted: hsla(210, 18%, 87%, 1);
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 16px;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+tr {
+  background-color: $color-canvas-default;
+  border-top: 1px solid $color-border-muted;
+}
+
+tr:nth-child(2n) {
+  background-color: $color-canvas-subtle;
+}
+
+td,
+th {
+  padding: 6px 13px;
+  border: 1px solid $color-border-default;
+}
+
+th {
+  font-weight: 600;
+}
+
+table img {
+  background-color: transparent;
 }

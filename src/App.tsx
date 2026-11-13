@@ -5,6 +5,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import withSuspense from '@/HOC/withSuspense';
 import { MDXProvider } from '@mdx-js/react';
 import Guide from '@/components/guide.mdx';
+const Read = lazy(() => import('@/components/README.md'));
 import 'highlight.js/styles/github-dark.css';
 
 const Counter = withSuspense(
@@ -20,7 +21,7 @@ const mdxComponents = {
 
 const App = () => {
   return (
-    <div className={style.container}>
+    <div>
       <div>
         React <u>{process.env.APP_NAME}</u>
       </div>
@@ -54,6 +55,7 @@ const App = () => {
       </ErrorBoundary>
       <MDXProvider components={mdxComponents}>
         <Guide />
+        <Read />
       </MDXProvider>
     </div>
   );

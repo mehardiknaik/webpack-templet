@@ -4,7 +4,8 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ConfigWebpackPlugin from './scripts/ConfigWebpackPlugin';
-import rehypeHighlight from 'rehype-highlight'
+import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from "@swarmica/remark-gfm";
 import path from 'path';
 import './scripts/loadEnv';
 
@@ -25,6 +26,7 @@ const config: Configuration = {
             loader: '@mdx-js/loader',
             options: {
               providerImportSource: '@mdx-js/react',
+              remarkPlugins: [[remarkGfm, {}]],
               rehypePlugins: [rehypeHighlight],
             },
           },

@@ -15,15 +15,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "core-js": "^3.49.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "regenerator-runtime": "^0.14.1",
-    "rehype-highlight": "^7.0.2"
+    "regenerator-runtime": "^0.14.1"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@swarmica/remark-gfm": "^1.0.0",
     "@babel/core": "^7.29.0",
     "@babel/plugin-transform-nullish-coalescing-operator": "^7.29.7",
     "@babel/plugin-transform-optional-chaining": "^7.29.7",
@@ -60,6 +60,7 @@
     "mini-css-extract-plugin": "^2.10.2",
     "prettier": "^3.8.3",
     "progress-bar-webpack-plugin": "^2.1.0",
+    "rehype-highlight": "^7.0.2",
     "sass": "^1.108.1",
     "sass-loader": "^16.0.8",
     "serve": "^14.2.6",
