@@ -60,6 +60,8 @@
     "prettier": "^3.9.10",
     "progress-bar-webpack-plugin": "^2.1.0",
     "serve": "^14.2.7",
+    "sass": "^1.108.1",
+    "sass-loader": "^16.0.8",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.6.1",
     "ts-node": "^10.9.2",

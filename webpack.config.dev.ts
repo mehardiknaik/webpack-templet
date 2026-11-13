@@ -30,7 +30,7 @@ const config: Configuration = {
         }
       },
       {
-        test: /\.module\.(css|scss)$/,
+        test: /\.module\.(css|s[ac]ss)$/,
         use: [
           'style-loader',
           {
@@ -43,12 +43,32 @@ const config: Configuration = {
                 exportLocalsConvention: 'camelCase'
               }
             }
-          }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
         ]
       },
       {
-        test: /\.(css|scss)$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.(css|s[ac]ss)$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          }
+        ],
         exclude: /\.module\.(css|scss)$/
       }
     ]

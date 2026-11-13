@@ -8,6 +8,7 @@
   font-size: 24px;
   text-align: center;
 }
+
 .logo-container {
   display: flex;
   align-items: center;
@@ -25,10 +26,12 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 .webpack {
   width: 180px;
   height: 180px;
@@ -40,7 +43,13 @@
   100% {
     transform: translateY(-20px);
   }
+
   50% {
     transform: translateY(20px);
   }
+}
+
+.loader {
+  height: 138px;
+  text-align: center;
 }

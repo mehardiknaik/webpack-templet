@@ -60,7 +60,9 @@ const config: Configuration = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       inject: true,
-      minify: true
+      templateParameters: {
+        __BUILD_DATE__: new Date().toISOString(),
+      }
     }),
     new ProvidePlugin({
       React: 'react'
@@ -71,7 +73,8 @@ const config: Configuration = {
     new DotenvWebpackPlugin({
       defaults: true,
       allowEmptyValues: true,
-      safe: true
+      safe: true,
+      systemvars: true
     }),
     new ProgressBarPlugin() as WebpackPluginInstance,
     new ConfigWebpackPlugin({
