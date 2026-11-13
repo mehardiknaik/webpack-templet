@@ -1,4 +1,11 @@
 /**
+ * Module declaration for CSS and SCSS files.
+ * Allows importing CSS and SCSS files as modules.
+ */
+declare module '*.css';
+declare module '*.scss';
+
+/**
  * Module declaration for image files.
  * Allows importing images as modules.
  */
