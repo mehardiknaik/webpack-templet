@@ -7,6 +7,7 @@ import ConfigWebpackPlugin from './scripts/ConfigWebpackPlugin';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from "@swarmica/remark-gfm";
 import path from 'path';
+import pkg from './package.json';
 import './scripts/loadEnv';
 
 const config: Configuration = {
@@ -77,7 +78,35 @@ const config: Configuration = {
       inject: true,
       templateParameters: {
         __BUILD_DATE__: new Date().toISOString(),
-      }
+        title: pkg.name,
+      },
+      meta: {
+        // Basic SEO
+        siteName: pkg.name,
+        title: pkg.name,
+        description: pkg.description,
+
+        // Mobile and browser
+        viewport: 'width=device-width, initial-scale=1.0',
+        "theme-color": '#00D09C',
+        "color-scheme": 'light',
+        "application-name": pkg.name,
+
+        // Icons
+        favicon: 'react.svg',
+
+        // Additional metadata
+        language: 'en',
+        charset: 'UTF-8',
+      },
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeEmptyAttributes: true,
+        minifyCSS: true,
+        minifyJS: true
+      },
     }),
     new ProvidePlugin({
       React: 'react'
