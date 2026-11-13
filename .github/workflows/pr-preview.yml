@@ -1,0 +1,160 @@
+
+name: PR Preview Deployment
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: pr-preview-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy PR Preview
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          PUBLIC_URL: /${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          destination_dir: pr-preview/pr-${{ github.event.number }}
+          keep_files: true
+
+      - name: Add Preview URL to PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.issue.number;
+
+            const url =
+              `https://${owner}.github.io/${repo}/pr-preview/pr-${prNumber}/`;
+
+            const marker = '<!-- pr-preview-comment -->';
+
+            const body = `${marker}
+            ## 🚀 PR Preview Deployed
+
+            **Preview URL:** ${url}
+
+            Preview is automatically updated when new commits are pushed.`;
+
+            const { data: comments } =
+              await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number: prNumber
+              });
+
+            const existing = comments.find(comment =>
+              comment.body.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: prNumber,
+                body
+              });
+            }
+
+  cleanup:
+    name: Remove PR Preview
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Remove preview directory
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          DIR="pr-preview/pr-${PR_NUMBER}"
+
+          rm -rf "$DIR"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Remove PR #${PR_NUMBER} preview"
+            git push origin HEAD:gh-pages
+          else
+            echo "Preview directory does not exist."
+          fi
+
+      - name: Update PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.issue.number;
+            const marker = '<!-- pr-preview-comment -->';
+
+            const { data: comments } =
+              await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number: prNumber
+              });
+
+            const existing = comments.find(comment =>
+              comment.body.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body: `${marker}
+            ## 🗑️ PR Preview Removed
+
+            This preview is no longer available because the PR was closed.`
+              });
+            }
