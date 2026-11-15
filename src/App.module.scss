@@ -4,8 +4,9 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f0f0f0;
   font-size: 24px;
+  background-image: url('@/assets/bg.png');
+  background-size: cover;
 }
 
 .logo-container {
