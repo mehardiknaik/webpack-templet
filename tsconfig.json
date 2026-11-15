@@ -33,6 +33,6 @@
       "module": "commonjs"
     }
   },
-  "include": ["src"],
+  "include": ["src", "webpack.config.*.ts", "scripts"],
   "exclude": ["node_modules", "build", "dist", "coverage", "public"]
 }
