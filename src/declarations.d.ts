@@ -9,10 +9,79 @@ declare module '*.scss';
  * Module declaration for image files.
  * Allows importing images as modules.
  */
-declare module '*.png';
-declare module '*.svg';
-declare module '*.jpeg';
-declare module '*.jpg';
+declare module '*.png' {
+  const src: string;
+  export default src;
+}
+declare module '*.jpg' {
+  const src: string;
+  export default src;
+}
+declare module '*.jpeg' {
+  const src: string;
+  export default src;
+}
+declare module '*.gif' {
+  const src: string;
+  export default src;
+}
+declare module '*.webp' {
+  const src: string;
+  export default src;
+}
+declare module '*.svg' {
+  const src: string;
+  export default src;
+}
+
+/**
+ * Module declaration for inline query.
+ * Allows importing images as inline modules.
+ * Returns base64 data:image/... URI string.
+ */
+declare module '*?inline' {
+  const src: string;
+  export default src;
+}
+
+/**
+ * Module declaration for url query.
+ * Allows importing images as url modules.
+ * Returns resolved public file URL string.
+ */
+declare module '*?url' {
+  const src: string;
+  export default src;
+}
+/**
+ * Module declaration for no-inline query.
+ * Allows importing images as no-inline modules.
+ * Returns resolved public file URL string.
+ */
+declare module '*?no-inline' {
+  const src: string;
+  export default src;
+}
+
+/**
+ * Module declaration for raw query.
+ * Allows importing files as raw modules.
+ * Returns raw file text content as a string.
+ */
+declare module '*?raw' {
+  const content: string;
+  export default content;
+}
+
+/**
+ * Module declaration for svg with react query.
+ * Allows importing svg files as react components.
+ */
+declare module '*.svg?react' {
+  import type { FunctionComponent, SVGProps } from 'react';
+  const ReactComponent: FunctionComponent<SVGProps<SVGSVGElement>>;
+  export default ReactComponent;
+}
 
 /**
  * Global variable.

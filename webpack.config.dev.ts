@@ -23,11 +23,45 @@ const config: Configuration = {
         }
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: '[path][name].[hash:5][ext]'
-        }
+        test: /\.(png|jpe?g|gif|svg|webp)$/i,
+        oneOf: [
+          // 1. Force inline as base64 data URI (?inline)
+          {
+            resourceQuery: /inline/,
+            type: 'asset/inline',
+          },
+          // 2. Import raw source code as a string (?raw)
+          {
+            resourceQuery: /raw/,
+            type: 'asset/source',
+          },
+          // 3. Force separate file URL, bypassing size limit (?url or ?no-inline)
+          {
+            resourceQuery: /(url|no-inline)/,
+            type: 'asset/resource',
+            generator: {
+              filename: '[path][name].[hash:5][ext]',
+            },
+          },
+          // 4. Import SVGs as React components (?react) - requires @svgr/webpack
+          {
+            test: /\.svg$/i,
+            resourceQuery: /react/,
+            use: ['@svgr/webpack'],
+          },
+          // 5. Default fallback: auto-inline if smaller than 4KB, otherwise emit file
+          {
+            type: 'asset',
+            parser: {
+              dataUrlCondition: {
+                maxSize: 4 * 1024, // 4 KiB (matches Vite's default)
+              },
+            },
+            generator: {
+              filename: '[path][name].[hash:5][ext]',
+            },
+          },
+        ]
       },
       {
         test: /\.module\.(css|s[ac]ss)$/,
