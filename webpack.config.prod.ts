@@ -4,8 +4,8 @@ import TerserPlugin from 'terser-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import merge from 'webpack-merge';
+import { RsdoctorWebpackPlugin } from "@rsdoctor/webpack-plugin"
 import commonConfig from './webpack.config.common';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import WebpackObfuscator from 'webpack-obfuscator';
 import pkg from './package.json';
 import './scripts/loadEnv';
@@ -143,9 +143,10 @@ const config: Configuration = {
       __VERSION__: JSON.stringify(pkg.version),
       __REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify(false)
     }),
-    new BundleAnalyzerPlugin({
-      openAnalyzer: false,
-      analyzerMode: 'static'
+    new RsdoctorWebpackPlugin({
+      disableClientServer: true,
+      output: { mode: 'brief' },
+      linter: { level: 'Ignore' }
     }),
     WEBPACK_OBFUSCATOR && new WebpackObfuscator({
       compact: true,
