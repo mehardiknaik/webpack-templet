@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --config webpack.config.dev.ts",
-    "build": "webpack --config webpack.config.prod.ts",
+    "build": "NODE_OPTIONS='--import=tsx' webpack --config webpack.config.prod.ts",
     "preview": "serve -s dist",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -65,6 +65,7 @@
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.6.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.4",
     "typescript-plugin-css-modules": "^5.2.0",
