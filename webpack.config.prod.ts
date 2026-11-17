@@ -50,7 +50,7 @@ const config: Configuration = {
             resourceQuery: /(url|no-inline)/,
             type: 'asset/resource',
             generator: {
-              filename: '[path][name].[hash:5][ext]',
+              filename: `${SEPERATE_FOLDERS ? 'images/' : ''}[name].[hash:5][ext]`
             },
           },
           // 4. Import SVGs as React components (?react) - requires @svgr/webpack
